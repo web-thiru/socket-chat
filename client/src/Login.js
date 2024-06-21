@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import Chat from './Chat';
 
 
-const socket = io.connect('http://localhost:3001');
+const socket = io('http://localhost:3001');
 function Login() {
     const [username, setUsername] = useState('');
     const [room, setRoom] = useState('');
@@ -12,6 +12,12 @@ function Login() {
         socket.emit('joinRoom', room);
         setJoined(true);
     }
+    useEffect(()=>{
+        socket.on('connect',()=>{
+            console.log('socket is connected');
+        });
+        return ()=>socket.disconnect();
+    },[])
     return (
         <div>
             {!joined && (
