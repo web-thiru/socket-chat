@@ -33,7 +33,7 @@ myRouter.get('/', (req, res) => {
       socket.join(room);
       users.push({ id: socket.id, room });
       const userInRoom = users.filter((user) => user.room === room);
-      socket.to(room).emit('userJoined', userInRoom);
+      socket.to(room).emit('userJoined', userInRoom); 
     });
 
     socket.on('sendMessage', (data) => {
