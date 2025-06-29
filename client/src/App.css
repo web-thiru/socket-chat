@@ -36,3 +36,376 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Overall container for centering and background */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #0d0d0d, #a2a4a5) ;/* Nice gradient background */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.join-form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    position: relative; /* Needed for potential future absolute positioning of elements */
+    overflow: hidden; /* Ensures no overflow from animations */
+}
+
+.join-form h2 {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2em;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    font-size: 1.1em;
+    color: #333;
+    background: transparent; /* Ensure background doesn't block label */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #2193b0;
+    box-shadow: 0 1px 0 0 linear-gradient(45deg, #0d0d0d, #a2a4a5); /* Subtle underline effect on focus */
+}
+
+/* Placeholder animation - move up on focus or when filled */
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #999;
+    font-size: 1.1em;
+    pointer-events: none;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    transform: translateY(-20px) translateX(0) scale(0.85); /* Move up and shrink */
+    font-size: 0.9em;
+    color: #2193b0;
+}
+
+.join-form button {
+    background: linear-gradient(45deg, #0d0d0d, #a2a4a5);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    outline: none;
+}
+
+.join-form button:hover {
+    transform: translateY(-3px); /* Lift button on hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #0d0d0d, #a2a4a5)/* Reverse gradient on hover */
+}
+
+.join-form button:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Overall container for centering and background - similar to login form */
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #0d0d0d, #a2a4a5); /* Consistent gradient */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    padding: 20px; /* Add some padding for smaller screens */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.chat-room {
+    background-color: #ffffff;
+    padding: 30px; /* Slightly less padding than login for content area */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 700px; /* Wider for chat experience */
+    height: 80vh; /* Set a height for scrollable messages */
+    display: flex;
+    flex-direction: column; /* Stack header, messages, form vertically */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure nothing spills out */
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.chat-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8em;
+}
+
+.chat-header .room-name {
+    color: #0d0d0d; /* Highlight room name */
+    font-weight: bold;
+}
+
+.leave-button {
+    background: linear-gradient(45deg, #f05050, #e02020); /* Red for "leave" */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    outline: none;
+}
+
+.leave-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #e02020, #f05050);
+}
+
+.leave-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.messages-box {
+    flex-grow: 1; /* Allows message box to take up available space */
+    overflow-y: auto; /* Enable scrolling for messages */
+    padding-right: 10px; /* Space for scrollbar */
+    margin-bottom: 20px;
+}
+
+/* Custom scrollbar for webkit browsers */
+.messages-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.messages-box::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.messages-box::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.message-item {
+    background-color: #e9ebeb; /* Light background for incoming messages */
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-width: 50%; /* Messages don't take full width */
+    word-wrap: break-word; /* Break long words */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.3s ease-out forwards; /* Fade in animation */
+    transform: translateY(10px); /* Start slightly below */
+    opacity: 0; /* Start invisible */
+    text-align: left;
+}
+
+/* Animation for messages appearing */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.message-item .message-username {
+    font-weight: bold;
+    color: linear-gradient(45deg, #0d0d0d, #a2a4a5); /* Consistent primary color for username */
+    margin-right: 5px;
+}
+
+/* Style for messages sent by the current user */
+.message-item.my-message {
+    background-color: #e9ebeb; /* Slightly different background for own messages */
+    margin-left: auto; /* Push own messages to the right */
+    width: 80%; /* Ensure own messages don't take full width */ 
+    text-align: left;
+    color: #333;
+}
+
+.message-item.my-message .message-username {
+    color: linear-gradient(45deg, #0d0d0d, #a2a4a5); /* A bit darker blue for own username */
+}
+
+.message-form {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* --- NEW / MODIFIED CSS FOR INPUT AND BUTTON POSITIONING --- */
+
+.input-with-button {
+    position: relative; /* Essential for positioning the button inside */
+    display: flex; /* Use flexbox to align input and button horizontally */
+    align-items: center; /* Vertically center items */
+    width: 100%;
+}
+
+.message-input {
+    flex-grow: 1; /* Input takes up available space */
+    padding: 12px 15px;
+    padding-right: 60px; /* Make space for the button inside */
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 1.1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.message-input:focus {
+    border-color: linear-gradient(45deg, #0d0d0d, #a2a4a5);
+    box-shadow: 0 0 8px rgba(33, 147, 176, 0.3);
+}
+
+.send-button {
+    position: absolute; /* Position button absolutely within the input-with-button container */
+    right: 5px; /* Adjust as needed for spacing from the right edge */
+    background: linear-gradient(45deg, #0d0d0d, #a2a4a5);
+    color: white;
+    width: 45px; /* Make it square */
+    height: 45px; /* Make it square */
+    border: none;
+    border-radius: 50%; /*Make it circular */
+    display: flex; /* Use flex to center icon */
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em; /* This will affect text, but we'll hide text on mobile */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    outline: none;
+    z-index: 10; /* Ensure it's above the input */
+}
+
+.send-button .send-text {
+    display: none; /* Hide text on mobile by default */
+}
+
+.send-icon {
+    width: 24px; /* Size for the icon */
+    height: 24x;
+    display: block; /* Ensure icon is visible */
+}
+
+.send-button:hover {
+    transform: translateY(-2px); /* Slightly less lift than main buttons */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.send-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .chat-room {
+        padding: 20px;
+        height: 90vh;
+    }
+
+    .chat-header h2 {
+        font-size: 1.5em;
+    }
+
+    .leave-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    /* On larger screens (desktop), the button is side-by-side.
+       On mobile, the default positioning is inside the input, so
+       we only need to ensure the text is hidden. */
+    .message-form {
+        flex-direction: row; /* Default for the message form is now a row */
+        gap: 0; /* No gap needed as button is inside input */
+    }
+
+    .message-input {
+        width: 100%;
+        padding-right: 60px; /* Ensure padding for the button */
+    }
+
+    /* .send-button styles defined above are for mobile-first approach */
+    .send-button {
+        /* Already positioned inside */
+    }
+}
+
+/* Styles for larger screens (desktop) - override mobile styles */
+@media (min-width: 7690px) {
+    .message-form {
+        display: flex; /* Revert to flex for input and button side-by-side */
+        gap: 15px; /* Add gap back for desktop */
+    }
+
+    .input-with-button {
+        display: block; /* Remove flex, allow button to be outside */
+        position: static; /* Remove absolute positioning */
+        flex-grow: 1; /* Input takes all available space */
+    }
+
+    .message-input {
+        padding-right: 15px; /* Remove extra padding when button is outside */
+        width: 90%; /* Ensure input takes full width of its container */
+    }
+
+    .send-button {
+        position: static; /* Remove absolute positioning */
+        width: auto; /* Revert width to auto */
+        height: auto; /* Revert height to auto */
+        border-radius: 25px; /* Make it rounded rectangle again */
+        padding: 12px 25px; /* Add padding for text */
+        display: flex; /* Use flex to center content */
+        align-items: center;
+        gap: 5px; /* Space between icon and text */
+    }
+
+    .send-button .send-text {
+        display: inline; /* Show text on larger screens */
+    }
+
+    .send-button .send-icon {
+        display: block; /* Ensure icon is visible */
+    }
+}

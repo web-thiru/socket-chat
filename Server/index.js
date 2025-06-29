@@ -1,12 +1,16 @@
-const express = require('express');
+
+import express from 'express';
+import {Server} from 'socket.io';
+import {createServer} from 'http';
+import cors from 'cors';
+
+
 const app = express();
-const cors = require('cors');
-const { Server } = require('socket.io');
-const http = require('http');
+
 
 app.use(cors());
 
-const server = http.createServer(app);
+const server = createServer(app);
 
 
 const io = new Server(server, {
@@ -17,16 +21,11 @@ const io = new Server(server, {
 
 });
 
-app.use((req, res, next) => {
-  req.io = io;
-  next();
-});
 
-const myRouter = express.Router();
 
-myRouter.get('/', (req, res) => {
+
   let users = [];
-  req.io.on('connection', (socket) => {
+  io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
     socket.on('joinRoom', (room) => {
@@ -40,23 +39,18 @@ myRouter.get('/', (req, res) => {
       io.to(data.room).emit('newMessage', data);
     });
 
+    socket.on('leaveRoom', (room) => {
+      socket.leave(room);
+      users = users.filter((user) => user.id !== socket.id);      
+      socket.to(room).emit('userLeft', { id: socket.id, room });
+    });
+
     socket.on('disconnect', () => {
       console.log('A user disconnected:', socket.id);
       users = users.filter((user) => user.id !== socket.id);
     });
-  })
-  res.send("ok")
-})
+  });
 
-app.use('/socket', myRouter);
-
-
-
-
-/* app.get('/',(req,res)=>{
-    res.send("Thiru")
-}) */
-// app.get('/socket', () => {
 
 
 
